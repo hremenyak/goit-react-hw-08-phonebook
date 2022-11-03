@@ -10,7 +10,7 @@ export const Form = styled.form`
   margin-top: ${p => p.theme.space[4]}px;
   margin-bottom: ${p => p.theme.space[4]}px;
   padding: ${p => p.theme.space[3]}px;
-  border: 1px solid grey;
+  border: ${p => p.theme.borders.normal} ${p => p.theme.colors.border};
   border-radius: 5px;
 `;
 
