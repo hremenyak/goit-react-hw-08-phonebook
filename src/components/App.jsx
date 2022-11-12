@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import toast, { Toaster } from 'react-hot-toast';
 import { ContactForm } from './ContactForm/ContactForm';
@@ -6,18 +6,13 @@ import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { Wrapper } from './App.styled';
 import { GlobalStyle } from './GlobalStyle';
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
 const LOCAL_STORAGE_KEY = 'contacts';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(
-    () => JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_KEY)) ?? []
-  );
+  const [contacts, setContacts] = useLocalStorage(LOCAL_STORAGE_KEY, []);
   const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
-  }, [contacts]);
 
   const addContact = (contactName, contactNumber) => {
     const checkName = contacts.find(
