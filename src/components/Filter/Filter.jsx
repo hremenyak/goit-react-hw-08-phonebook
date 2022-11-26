@@ -1,10 +1,16 @@
 import propTypes from 'prop-types';
+import { TextField } from '@mui/material';
 import { Text } from './Filter.styled';
 export const Filter = ({ onChange }) => {
   return (
     <>
       <Text>Find contacts by name</Text>
-      <input onChange={onChange} />
+      <TextField
+        id="outlined-basic"
+        variant="outlined"
+        size="small"
+        onChange={onChange}
+      />
     </>
   );
 };

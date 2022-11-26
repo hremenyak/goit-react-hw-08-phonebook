@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import { Form, Button, Label } from './ContactForm.styled';
+import { Button, TextField } from '@mui/material';
+import { IoIosAddCircle } from 'react-icons/io';
+import { Form } from './ContactForm.styled';
 
 export const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
@@ -29,8 +31,11 @@ export const ContactForm = ({ onSubmit }) => {
 
   return (
     <Form onSubmit={onFormSubmit}>
-      <Label htmlFor="name">Name</Label>
-      <input
+      <TextField
+        id="outlined-basic"
+        label="Name"
+        variant="outlined"
+        size="small"
         type="text"
         name="name"
         value={name}
@@ -39,8 +44,12 @@ export const ContactForm = ({ onSubmit }) => {
         required
         onChange={onFormChange}
       />
-      <Label htmlFor="tel">Phone number</Label>
-      <input
+
+      <TextField
+        id="outlined-basic"
+        label="Phone number"
+        variant="outlined"
+        size="small"
         type="tel"
         name="number"
         value={number}
@@ -49,7 +58,14 @@ export const ContactForm = ({ onSubmit }) => {
         required
         onChange={onFormChange}
       />
-      <Button type="submit">Add contact</Button>
+      <Button
+        type="submit"
+        variant="outlined"
+        size="small"
+        startIcon={<IoIosAddCircle />}
+      >
+        Add contact
+      </Button>
     </Form>
   );
 };

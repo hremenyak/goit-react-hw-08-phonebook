@@ -1,5 +1,7 @@
 import propTypes from 'prop-types';
-import { Button, Wrapper, Item } from './ContactList.styled';
+import { Wrapper, Item } from './ContactList.styled';
+import { Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 export const ContactList = ({ contacts, onDeleteContact }) => {
   return (
     <>
@@ -10,7 +12,13 @@ export const ContactList = ({ contacts, onDeleteContact }) => {
               {contact.name}: {contact.number}
             </span>
 
-            <Button type="button" onClick={() => onDeleteContact(contact.id)}>
+            <Button
+              type="button"
+              onClick={() => onDeleteContact(contact.id)}
+              variant="outlined"
+              startIcon={<DeleteIcon />}
+              size="small"
+            >
               Delete
             </Button>
           </Item>
