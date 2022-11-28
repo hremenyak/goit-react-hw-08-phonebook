@@ -1,8 +1,15 @@
-import propTypes from 'prop-types';
 import { Wrapper, Item } from './ContactList.styled';
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-export const ContactList = ({ contacts, onDeleteContact }) => {
+import { useDispatch } from 'react-redux';
+import { deleteContact } from 'redux/contactsSlice';
+
+export const ContactList = ({ contacts }) => {
+  const dispatch = useDispatch();
+
+  const handleDeleteButton = contactId => {
+    dispatch(deleteContact(contactId));
+  };
   return (
     <>
       <Wrapper>
@@ -14,7 +21,7 @@ export const ContactList = ({ contacts, onDeleteContact }) => {
 
             <Button
               type="button"
-              onClick={() => onDeleteContact(contact.id)}
+              onClick={() => handleDeleteButton(contact.id)}
               variant="outlined"
               startIcon={<DeleteIcon />}
               size="small"
@@ -26,9 +33,4 @@ export const ContactList = ({ contacts, onDeleteContact }) => {
       </Wrapper>
     </>
   );
-};
-
-ContactList.propTypes = {
-  contacts: propTypes.arrayOf(propTypes.object).isRequired,
-  onDeleteContact: propTypes.func.isRequired,
 };

@@ -1,64 +1,39 @@
 import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
-import toast, { Toaster } from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { Wrapper } from './App.styled';
 import { GlobalStyle } from './GlobalStyle';
-import { useLocalStorage } from 'hooks/useLocalStorage';
+// import { findContact } from 'redux/contactsSlice';
+// import { useLocalStorage } from 'hooks/useLocalStorage';
 
-const LOCAL_STORAGE_KEY = 'contacts';
+// const LOCAL_STORAGE_KEY = 'contacts';
 
 export const App = () => {
-  const [contacts, setContacts] = useLocalStorage(LOCAL_STORAGE_KEY, []);
   const [filter, setFilter] = useState('');
-
-  const addContact = (contactName, contactNumber) => {
-    const checkName = contacts.find(
-      contact => contact.name.toLowerCase() === contactName.toLowerCase()
-    );
-
-    if (checkName) {
-      toast.error(`${contactName} is already in your contacts.`);
-      return;
-    } else {
-      const newContact = {
-        id: nanoid(),
-        name: contactName,
-        number: contactNumber,
-      };
-
-      setContacts(prevContacts => {
-        return [...prevContacts, newContact];
-      });
-    }
-  };
+  // const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts);
 
   const onInputChange = e => {
     setFilter(e.target.value);
-  };
-
-  const deleteContact = contactId => {
-    setContacts(prevContacts =>
-      prevContacts.filter(contact => contact.id !== contactId)
-    );
+    // dispatch(findContact(e.target.value));
   };
 
   const normalizedValue = filter.toLowerCase();
   const visibleContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(normalizedValue)
   );
-
   return (
     <Wrapper>
       <h1> Phonebook</h1>
-      <ContactForm onSubmit={addContact} />
-      <Toaster />
+      <ContactForm />
       <h1> Contacts</h1>
       <Filter onChange={onInputChange} />
-      <ContactList contacts={visibleContacts} onDeleteContact={deleteContact} />
+      <ContactList contacts={visibleContacts} />
       <GlobalStyle />
     </Wrapper>
   );
 };
+
+// VISIBLE CONTACTS????  oninput change and

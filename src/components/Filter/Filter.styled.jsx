@@ -6,3 +6,7 @@ export const Text = styled.p`
   font-weight: ${p => p.theme.fontWeights.heading};
   color: ${p => p.theme.colors.gray};
 `;
+
+export const Wrapper = styled.div`
+  padding-left: ${p => p.theme.space[4]}px;
+`;

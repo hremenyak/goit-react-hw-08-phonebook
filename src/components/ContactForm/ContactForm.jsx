@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import propTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import toast, { Toaster } from 'react-hot-toast';
 import { Button, TextField } from '@mui/material';
 import { IoIosAddCircle } from 'react-icons/io';
 import { Form } from './ContactForm.styled';
-
-export const ContactForm = ({ onSubmit }) => {
+import { addContact } from 'redux/contactsSlice';
+export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
 
   const onFormChange = e => {
     const { name, value } = e.target;
@@ -23,8 +27,18 @@ export const ContactForm = ({ onSubmit }) => {
   };
 
   const onFormSubmit = e => {
+    const checkName = contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (checkName) {
+      toast.error(`${name} is already in your contacts.`);
+      return;
+    } else {
+      dispatch(addContact(name, number));
+    }
     e.preventDefault();
-    onSubmit(name, number);
+
     setName('');
     setNumber('');
   };
@@ -66,10 +80,7 @@ export const ContactForm = ({ onSubmit }) => {
       >
         Add contact
       </Button>
+      <Toaster />
     </Form>
   );
-};
-
-ContactForm.propTypes = {
-  onSubmit: propTypes.func.isRequired,
 };
