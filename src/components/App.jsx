@@ -3,9 +3,6 @@ import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { Wrapper } from './App.styled';
 import { GlobalStyle } from './GlobalStyle';
-// import { useLocalStorage } from 'hooks/useLocalStorage';
-
-// const LOCAL_STORAGE_KEY = 'contacts';
 
 export const App = () => {
   return (

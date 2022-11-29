@@ -11,14 +11,17 @@ export const ContactList = () => {
   const handleDeleteButton = contactId => {
     dispatch(deleteContact(contactId));
   };
-  const visibleContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
-
+  if (!filter) {
+    return;
+  }
+  // const visibleContacts = contacts.filter(contact =>
+  //   contact.name.toLowerCase().includes(filter.toLowerCase())
+  // );
+  console.log(contacts);
   return (
     <>
       <Wrapper>
-        {visibleContacts.map(contact => (
+        {contacts.map(contact => (
           <Item key={contact.id}>
             <span>
               {contact.name}: {contact.number}
