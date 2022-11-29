@@ -1,19 +1,24 @@
 import { Wrapper, Item } from './ContactList.styled';
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/contactsSlice';
 
-export const ContactList = ({ contacts }) => {
+export const ContactList = () => {
   const dispatch = useDispatch();
-
+  const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
   const handleDeleteButton = contactId => {
     dispatch(deleteContact(contactId));
   };
+  const visibleContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
   return (
     <>
       <Wrapper>
-        {contacts.map(contact => (
+        {visibleContacts.map(contact => (
           <Item key={contact.id}>
             <span>
               {contact.name}: {contact.number}

@@ -1,7 +1,14 @@
-import propTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { TextField } from '@mui/material';
 import { Text, Wrapper } from './Filter.styled';
-export const Filter = ({ onChange }) => {
+import { setFilter } from 'redux/contactsSlice';
+export const Filter = () => {
+  const dispatch = useDispatch();
+
+  const onInputChange = e => {
+    const filterValue = e.target.value;
+    dispatch(setFilter(filterValue));
+  };
   return (
     <Wrapper>
       <Text>Find contacts by name</Text>
@@ -9,11 +16,8 @@ export const Filter = ({ onChange }) => {
         id="outlined-basic"
         variant="outlined"
         size="small"
-        onChange={onChange}
+        onChange={onInputChange}
       />
     </Wrapper>
   );
-};
-Filter.propTypes = {
-  onChange: propTypes.func.isRequired,
 };
