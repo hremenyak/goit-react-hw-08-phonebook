@@ -17,9 +17,12 @@ export const ContactForm = () => {
     switch (name) {
       case 'name':
         setName(value);
+        console.log(value);
         break;
       case 'number':
         setNumber(value);
+        console.log(value);
+
         break;
       default:
         throw new Error('There has been a mistake. Try again, please.');
@@ -27,6 +30,7 @@ export const ContactForm = () => {
   };
 
   const onFormSubmit = e => {
+    e.preventDefault();
     const checkName = contacts.find(
       contact => contact.name.toLowerCase() === name.toLowerCase()
     );
@@ -35,11 +39,8 @@ export const ContactForm = () => {
       toast.error(`${name} is already in your contacts.`);
       return;
     } else {
-      console.log(contacts);
-
       dispatch(addContact(name, number));
     }
-    e.preventDefault();
 
     setName('');
     setNumber('');
