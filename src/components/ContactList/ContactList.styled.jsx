@@ -1,17 +1,5 @@
 import styled from 'styled-components';
 
-export const Button = styled.button`
-outline: none;
-  border:  ${p => p.theme.borders.none};
-  border-radius: ${p => p.theme.radii.normal};
-  cursor: pointer;
-  width: 70px;
- 
-
-  padding: ${p => p.theme.space[2]}px;
-  &:hover {
-    background-color: ${p => p.theme.colors.accent}`;
-
 export const Wrapper = styled.ul`
   display: flex;
   flex-direction: column;
@@ -20,9 +8,23 @@ export const Wrapper = styled.ul`
 `;
 
 export const Item = styled.li`
-  display: flex;
+  display: inline-flex;
   justify-content: space-between;
+  align-items: center;
   &:not(:last-child) {
-    margin-bottom: ${p => p.theme.space[3]}px};
+    margin-bottom: ${p => p.theme.space[3]}px;
+  }
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      margin-right: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1976d2;
+    }
   }
 `;

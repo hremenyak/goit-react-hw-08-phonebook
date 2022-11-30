@@ -5,11 +5,12 @@ import { Button, TextField } from '@mui/material';
 import { IoIosAddCircle } from 'react-icons/io';
 import { Form } from './ContactForm.styled';
 import { addContact } from 'redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const onFormChange = e => {
@@ -17,11 +18,9 @@ export const ContactForm = () => {
     switch (name) {
       case 'name':
         setName(value);
-        console.log(value);
         break;
       case 'number':
         setNumber(value);
-        console.log(value);
 
         break;
       default:
@@ -37,6 +36,7 @@ export const ContactForm = () => {
 
     if (checkName) {
       toast.error(`${name} is already in your contacts.`);
+
       return;
     } else {
       dispatch(addContact(name, number));
