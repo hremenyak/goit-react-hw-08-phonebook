@@ -1,12 +1,7 @@
 import { Wrapper } from './ContactList.styled';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getContacts,
-  getError,
-  getFilter,
-  getIsLoading,
-} from 'redux/selectors';
+import { getContacts, getFilter } from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
 import { ContactListItem } from 'components/ContactListItem/ContactListItem';
 
