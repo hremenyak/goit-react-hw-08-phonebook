@@ -1,53 +1,29 @@
 import { Wrapper } from './ContactList.styled';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getFilter } from 'redux/selectors';
+import { selectVisibleContacts } from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
 import { ContactListItem } from 'components/ContactListItem/ContactListItem';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  const contactsFilter = useSelector(getFilter);
-  // const error = useSelector(getError);
+  const visibleContacts = useSelector(selectVisibleContacts);
 
-  // const isLoading = useSelector(getIsLoading);
-  // const handleDeleteButton = contactId => {
-  //   dispatch(deleteContact(contactId));
-  // };
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const visibleContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(contactsFilter.toLowerCase())
-  );
-
   return (
     <>
       <Wrapper>
-        {visibleContacts.map(contact => (
-          <ContactListItem key={contact.id} {...contact} />
-        ))}
+        {visibleContacts.length > 0 ? (
+          visibleContacts.map(contact => (
+            <ContactListItem key={contact.id} {...contact} />
+          ))
+        ) : (
+          <div>Unfortunately, we couldn't find any matches.</div>
+        )}
       </Wrapper>
     </>
   );
 };
-
-//  <p>
-//               <span>
-//                 <IoMdPerson />
-//               </span>
-//               {contact.name}: {contact.phone}
-//             </p>
-
-//             <Button
-//               type="button"
-//               onClick={() => handleDeleteButton(contact.id)}
-//               variant="outlined"
-//               // disabled={isLoading}
-//               startIcon={<DeleteIcon />}
-//               size="small"
-//             >
-//               Delete
-//             </Button>

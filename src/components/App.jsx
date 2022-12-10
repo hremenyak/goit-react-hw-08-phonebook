@@ -4,11 +4,11 @@ import { Filter } from './Filter/Filter';
 import { Wrapper } from './App.styled';
 import { GlobalStyle } from './GlobalStyle';
 import { useSelector } from 'react-redux';
-import { getError, getIsLoading } from 'redux/selectors';
+import { selectError, selectIsLoading } from 'redux/selectors';
 
 export const App = () => {
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
   return (
     <>
       <Wrapper>
