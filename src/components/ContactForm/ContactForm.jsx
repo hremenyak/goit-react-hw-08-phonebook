@@ -4,14 +4,13 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Button, TextField } from '@mui/material';
 import { IoIosAddCircle } from 'react-icons/io';
 import { Form } from './ContactForm.styled';
-import { selectContacts, selectIsLoading } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 import { addContact } from 'redux/operations';
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const contacts = useSelector(selectContacts);
-  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
 
   const onFormChange = e => {
@@ -82,7 +81,6 @@ export const ContactForm = () => {
         type="submit"
         variant="outlined"
         size="small"
-        disabled={isLoading}
         startIcon={<IoIosAddCircle />}
       >
         Add contact

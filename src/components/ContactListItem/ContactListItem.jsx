@@ -10,7 +10,8 @@ import { toast } from 'react-hot-toast';
 
 export const ContactListItem = ({ id, name, phone }) => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
+  // const isLoading = useSelector(selectIsLoading);
+
   const handleDeleteButton = contactId => {
     dispatch(deleteContact(contactId));
     toast.success(`${name} was deleted from your contacts.`);
@@ -27,11 +28,11 @@ export const ContactListItem = ({ id, name, phone }) => {
         type="button"
         onClick={() => handleDeleteButton(id)}
         variant="outlined"
-        disabled={isLoading}
         startIcon={<DeleteIcon />}
         size="small"
       >
-        {' '}
+        {/* {isLoading ? <div> Deleting...</div> : <div> Delete</div>}
+         */}
         Delete
       </Button>
     </ListItem>
