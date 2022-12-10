@@ -1,6 +1,4 @@
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { selectIsLoading } from 'redux/selectors';
 import { deleteContact } from 'redux/operations';
 import { ListItem } from './ContactListItem.styled';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -31,8 +29,6 @@ export const ContactListItem = ({ id, name, phone }) => {
         startIcon={<DeleteIcon />}
         size="small"
       >
-        {/* {isLoading ? <div> Deleting...</div> : <div> Delete</div>}
-         */}
         Delete
       </Button>
     </ListItem>
