@@ -1,18 +1,15 @@
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/operations';
-import { ListItem } from './ContactListItem.styled';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from '@mui/material';
 import { IoMdPerson } from 'react-icons/io';
-import { toast } from 'react-hot-toast';
+import { deleteContact } from 'redux/operations';
+import { ListItem } from './ContactListItem.styled';
 
 export const ContactListItem = ({ id, name, phone }) => {
   const dispatch = useDispatch();
-  // const isLoading = useSelector(selectIsLoading);
 
   const handleDeleteButton = contactId => {
     dispatch(deleteContact(contactId));
-    toast.success(`${name} was deleted from your contacts.`);
   };
   return (
     <ListItem>

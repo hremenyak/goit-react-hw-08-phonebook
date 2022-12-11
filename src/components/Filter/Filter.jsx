@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { TextField } from '@mui/material';
 import { Text, Wrapper } from './Filter.styled';
 import { setFilter } from 'redux/contactsSlice';
+
 export const Filter = () => {
   const dispatch = useDispatch();
 

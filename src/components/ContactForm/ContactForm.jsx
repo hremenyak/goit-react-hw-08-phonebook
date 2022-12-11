@@ -6,10 +6,11 @@ import { IoIosAddCircle } from 'react-icons/io';
 import { Form } from './ContactForm.styled';
 import { selectContacts } from 'redux/selectors';
 import { addContact } from 'redux/operations';
+
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  // const error = useSelector(selectError);
+  const [isLoading, setIsloading] = useState(false);
 
   const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
@@ -42,14 +43,12 @@ export const ContactForm = () => {
     } else {
       const newContact = { name, number };
       dispatch(addContact(newContact));
-
-      toast.success(`${name} was successfully added to your contacts.`);
-
-      // toast.error(`Seems like an error occured. Try again later, please.`);
+      setIsloading(true);
     }
 
     setName('');
     setNumber('');
+    setIsloading(false);
   };
 
   return (
@@ -86,6 +85,7 @@ export const ContactForm = () => {
         variant="outlined"
         size="small"
         startIcon={<IoIosAddCircle />}
+        disabled={isLoading}
       >
         Add contact
       </Button>
