@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { Button } from '@mui/material';
 import { IoMdPerson } from 'react-icons/io';
 import { deleteContact } from 'redux/contacts/operations';
@@ -19,6 +20,14 @@ export const ContactListItem = ({ id, name, number }) => {
         </span>
         {name}: {number}
       </p>
+      <Button
+        type="button"
+        variant="outlined"
+        startIcon={<EditIcon />}
+        size="small"
+      >
+        Edit
+      </Button>
       <Button
         type="button"
         onClick={() => handleDeleteButton(id)}

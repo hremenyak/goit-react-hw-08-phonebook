@@ -5,20 +5,33 @@ import { Login } from 'pages/Login/Login';
 import { SignUp } from 'pages/SignUp/SignUp';
 import { GlobalStyle } from './GlobalStyle';
 import { Layout } from './Layout';
-// import { selectError, selectIsLoading } from 'redux/selectors';
+import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
 
 export const App = () => {
-  // const isLoading = useSelector(selectIsLoading);
-  // const error = useSelector(selectError);
   return (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Login />} />
+          <Route
+            index
+            element={
+              <PrivateRoute redirectTo="/contacts" component={<Login />} />
+            }
+          />
 
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="login" />
+          <Route
+            path="contacts"
+            element={
+              <RestrictedRoute redirectTo="/" component={<Contacts />} />
+            }
+          />
+          <Route
+            path="signup"
+            element={
+              <RestrictedRoute redirectTo="/contacts" component={<SignUp />} />
+            }
+          />
         </Route>
       </Routes>
       <GlobalStyle />
