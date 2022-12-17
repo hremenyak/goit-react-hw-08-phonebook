@@ -2,10 +2,10 @@ import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button } from '@mui/material';
 import { IoMdPerson } from 'react-icons/io';
-import { deleteContact } from 'redux/operations';
+import { deleteContact } from 'redux/contacts/operations';
 import { ListItem } from './ContactListItem.styled';
 
-export const ContactListItem = ({ id, name, phone }) => {
+export const ContactListItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
 
   const handleDeleteButton = contactId => {
@@ -17,7 +17,7 @@ export const ContactListItem = ({ id, name, phone }) => {
         <span>
           <IoMdPerson />
         </span>
-        {name}: {phone}
+        {name}: {number}
       </p>
       <Button
         type="button"

@@ -1,25 +1,27 @@
-import { useSelector } from 'react-redux';
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './Filter/Filter';
-import { Wrapper } from './App.styled';
+// import { useSelector } from 'react-redux';
+import { Routes, Route } from 'react-router-dom';
+import { Contacts } from 'pages/Contacts/Contacts';
+import { Login } from 'pages/Login/Login';
+import { SignUp } from 'pages/SignUp/SignUp';
 import { GlobalStyle } from './GlobalStyle';
-import { selectError, selectIsLoading } from 'redux/selectors';
+import { Layout } from './Layout';
+// import { selectError, selectIsLoading } from 'redux/selectors';
 
 export const App = () => {
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  // const isLoading = useSelector(selectIsLoading);
+  // const error = useSelector(selectError);
   return (
     <>
-      <Wrapper>
-        <h1> Phonebook</h1>
-        <ContactForm />
-        <h1> Contacts</h1>
-        <Filter />
-        {isLoading && !error && <div> Loading... </div>}
-        <ContactList />
-        <GlobalStyle />
-      </Wrapper>{' '}
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Login />} />
+
+          <Route path="contacts" element={<Contacts />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="login" />
+        </Route>
+      </Routes>
+      <GlobalStyle />
     </>
   );
 };

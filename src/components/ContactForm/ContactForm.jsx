@@ -4,8 +4,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Button, TextField } from '@mui/material';
 import { IoIosAddCircle } from 'react-icons/io';
 import { Form } from './ContactForm.styled';
-import { selectContacts } from 'redux/selectors';
-import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/contacts/selectors';
+import { addContact } from 'redux/contacts/operations';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
