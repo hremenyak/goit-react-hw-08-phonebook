@@ -1,8 +1,8 @@
 import { ContactForm } from '../../components/ContactForm/ContactForm';
 import { ContactList } from '../../components/ContactList/ContactList';
 import { Filter } from '../../components/Filter/Filter';
-import { Container } from './Contacts.styled';
-export const Contacts = () => {
+import { Container } from './ContactsPage.styled';
+export const ContactsPage = () => {
   return (
     <Container>
       <h1> Phonebook</h1>

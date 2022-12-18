@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom';
 import { LoginForm } from 'components/LoginForm/LoginForm';
-export const Login = () => {
+export const LoginPage = () => {
   return (
     <div>
-      Login
       <LoginForm />
       <p>
         Haven't got an acount yet?
-        {<Link to="signup"> Sign up</Link>} now!
+        {<Link to="/signup"> Sign up</Link>} now!
       </p>
     </div>
   );
