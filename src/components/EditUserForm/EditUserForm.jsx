@@ -1,10 +1,10 @@
 import { TextField, Button } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { selectContacts } from 'redux/contacts/selectors';
 export const EditUserForm = ({ userId }) => {
   const contacts = useSelector(selectContacts);
-  const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const contact = contacts.find(contact => contact.id === userId);
