@@ -5,12 +5,23 @@ import { Button } from '@mui/material';
 import { IoMdPerson } from 'react-icons/io';
 import { deleteContact } from 'redux/contacts/operations';
 import { ListItem } from './ContactListItem.styled';
+import { useState } from 'react';
+import { EditUserForm } from 'components/EditUserForm/EditUserForm';
 
 export const ContactListItem = ({ id, name, number }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [contactId, setContactId] = useState(false);
+
   const dispatch = useDispatch();
 
   const handleDeleteButton = contactId => {
     dispatch(deleteContact(contactId));
+  };
+
+  const handleEditButton = id => {
+    console.log(id, 'id edit button');
+    setContactId(id);
+    setShowModal(true);
   };
   return (
     <ListItem>
@@ -25,9 +36,11 @@ export const ContactListItem = ({ id, name, number }) => {
         variant="outlined"
         startIcon={<EditIcon />}
         size="small"
+        onClick={() => handleEditButton(id)}
       >
         Edit
       </Button>
+      {showModal && <EditUserForm userId={contactId} />}
       <Button
         type="button"
         onClick={() => handleDeleteButton(id)}
