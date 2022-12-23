@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button } from '@mui/material';
@@ -7,10 +7,12 @@ import { deleteContact } from 'redux/contacts/operations';
 import { ListItem } from './ContactListItem.styled';
 import { useState } from 'react';
 import { EditUserForm } from 'components/EditUserForm/EditUserForm';
+import { selectShowModal } from 'redux/contacts/selectors';
 
 export const ContactListItem = ({ id, name, number }) => {
   const [showModal, setShowModal] = useState(false);
   const [contactId, setContactId] = useState(false);
+  // const showModal = useSelector(selectShowModal);
 
   const dispatch = useDispatch();
 
@@ -20,7 +22,7 @@ export const ContactListItem = ({ id, name, number }) => {
 
   const handleEditButton = id => {
     setContactId(id);
-    setShowModal(true);
+    setShowModal(prevState => ({ showModal: !prevState.showModal }));
   };
   return (
     <ListItem>
@@ -30,16 +32,20 @@ export const ContactListItem = ({ id, name, number }) => {
         </span>
         {name}: {number}
       </p>
-      <Button
-        type="button"
-        variant="outlined"
-        startIcon={<EditIcon />}
-        size="small"
-        onClick={() => handleEditButton(id)}
-      >
-        Edit
-      </Button>
-      {showModal && <EditUserForm userId={contactId} />}
+
+      {showModal ? (
+        <EditUserForm userId={contactId} />
+      ) : (
+        <Button
+          type="button"
+          variant="outlined"
+          startIcon={<EditIcon />}
+          size="small"
+          onClick={() => handleEditButton(id)}
+        >
+          Edit
+        </Button>
+      )}
       <Button
         type="button"
         onClick={() => handleDeleteButton(id)}

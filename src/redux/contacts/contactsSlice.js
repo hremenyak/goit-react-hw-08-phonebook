@@ -12,7 +12,6 @@ const initialState = {
     items: [],
     isLoading: false,
     error: null,
-    // showModal: false,
   },
 };
 
@@ -65,6 +64,7 @@ const contactsSlice = createSlice({
         console.log(action.payload, 'action payload');
         state.contacts.isLoading = false;
         state.error = null;
+        toast.success(`Changes have been successfully saved.`);
       });
   },
 });
