@@ -17,3 +17,5 @@ export const selectVisibleContacts = createSelector(
     return visibleContacts;
   }
 );
+
+export const selectShowModal = state => state.contacts.selectShowModal;

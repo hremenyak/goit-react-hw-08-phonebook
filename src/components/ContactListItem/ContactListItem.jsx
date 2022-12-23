@@ -19,7 +19,6 @@ export const ContactListItem = ({ id, name, number }) => {
   };
 
   const handleEditButton = id => {
-    console.log(id, 'id edit button');
     setContactId(id);
     setShowModal(true);
   };
