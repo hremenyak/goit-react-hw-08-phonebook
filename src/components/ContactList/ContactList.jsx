@@ -36,4 +36,4 @@ export const ContactList = () => {
   );
 };
 
-//MODAL? HOW TO SYNC THE CHANGES WITH UI
+//MODAL?

@@ -1,19 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
 import EditIcon from '@mui/icons-material/Edit';
+import { TextField } from '@mui/material';
 import { Button } from '@mui/material';
 import { IoMdPerson } from 'react-icons/io';
 import { deleteContact } from 'redux/contacts/operations';
 import { ListItem } from './ContactListItem.styled';
 import { useState } from 'react';
-import { EditUserForm } from 'components/EditUserForm/EditUserForm';
-import { selectShowModal } from 'redux/contacts/selectors';
-
+import { updateContact } from 'redux/contacts/operations';
+import { fetchContacts } from 'redux/contacts/operations';
 export const ContactListItem = ({ id, name, number }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [contactId, setContactId] = useState(false);
-  // const showModal = useSelector(selectShowModal);
+  const [isEdit, setIsEdit] = useState(false);
 
+  const [newName, setNewName] = useState(name);
+  const [newNumber, setNewNumber] = useState(number);
   const dispatch = useDispatch();
 
   const handleDeleteButton = contactId => {
@@ -21,31 +22,83 @@ export const ContactListItem = ({ id, name, number }) => {
   };
 
   const handleEditButton = id => {
-    setContactId(id);
-    setShowModal(prevState => ({ showModal: !prevState.showModal }));
+    setIsEdit(prevState => !prevState);
+    if (isEdit && (newName !== name || newNumber !== number)) {
+      dispatch(
+        updateContact({
+          name: newName,
+          number: newNumber,
+          id,
+        })
+      );
+      dispatch(fetchContacts());
+    }
+  };
+
+  const onFormChange = e => {
+    const { name, value } = e.target;
+    switch (name) {
+      case 'name':
+        setNewName(value);
+        break;
+      case 'number':
+        setNewNumber(value);
+
+        break;
+      default:
+        throw new Error('There has been a mistake. Try again, please.');
+    }
   };
   return (
     <ListItem>
-      <p>
-        <span>
-          <IoMdPerson />
-        </span>
-        {name}: {number}
-      </p>
-
-      {showModal ? (
-        <EditUserForm userId={contactId} />
+      {isEdit ? (
+        <>
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
+            size="small"
+            type="text"
+            name="name"
+            defaultValue={name}
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            required
+            onChange={onFormChange}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Phone number"
+            variant="outlined"
+            size="small"
+            type="tel"
+            name="number"
+            defaultValue={number}
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            required
+            onChange={onFormChange}
+          />{' '}
+        </>
       ) : (
-        <Button
-          type="button"
-          variant="outlined"
-          startIcon={<EditIcon />}
-          size="small"
-          onClick={() => handleEditButton(id)}
-        >
-          Edit
-        </Button>
+        <p>
+          <span>
+            <IoMdPerson />
+          </span>
+          {name}: {number}
+        </p>
       )}
+
+      <Button
+        type="button"
+        variant="outlined"
+        startIcon={!isEdit ? <EditIcon /> : <SaveAsIcon />}
+        size="small"
+        onClick={() => handleEditButton(id)}
+      >
+        {isEdit ? 'Save' : 'Edit'}
+      </Button>
+
       <Button
         type="button"
         onClick={() => handleDeleteButton(id)}

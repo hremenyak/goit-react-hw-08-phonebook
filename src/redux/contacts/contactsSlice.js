@@ -13,6 +13,7 @@ const initialState = {
     isLoading: false,
     error: null,
   },
+  // showModal: true,
 };
 
 const handlePending = state => {
@@ -34,6 +35,7 @@ const contactsSlice = createSlice({
         state.contacts.items = action.payload;
         state.contacts.isLoading = false;
         state.error = null;
+        // state.showModal = false;
       })
       .addCase(fetchContacts.rejected, handleRejected)
       .addCase(addContact.pending, handlePending)
@@ -61,9 +63,9 @@ const contactsSlice = createSlice({
       .addCase(deleteContact.rejected, handleRejected)
       .addCase(updateContact.pending, handlePending)
       .addCase(updateContact.fulfilled, (state, action) => {
-        console.log(action.payload, 'action payload');
         state.contacts.isLoading = false;
         state.error = null;
+        // state.showModal = false;
         toast.success(`Changes have been successfully saved.`);
       });
   },
